@@ -6,15 +6,18 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entities.User;
+import com.example.demo.Mapper.UserDtoMapper;
 import com.example.demo.Repository.UserRepository;
 
 @Service
 public class UserService {
     
     private final UserRepository userRepository;
+    private final UserDtoMapper userDtoMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserDtoMapper userDtoMapper) {
         this.userRepository = userRepository;
+        this.userDtoMapper = userDtoMapper;
     }
 
         public User createUser( User user ){

@@ -1,10 +1,13 @@
 package com.example.demo.Services;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.Dto.UserRequestDto;
+import com.example.demo.Dto.UserResponseDto;
 import com.example.demo.Entities.User;
 import com.example.demo.Mapper.UserDtoMapper;
 import com.example.demo.Repository.UserRepository;
@@ -20,16 +23,32 @@ public class UserService {
         this.userDtoMapper = userDtoMapper;
     }
 
-        public User createUser( User user ){
-            return userRepository.save(user);
+        public UserResponseDto createUser( UserRequestDto request ){
+           // Convert DTO to entity using mapper
+           User user = userDtoMapper.toEntity(request);
+
+            User savedUser = userRepository.save(user);
+
+            // Convert entity to DTO using mapper
+            return userDtoMapper.toResponse(savedUser);
         }
 
-        public List<User> getUsers( User user ){
-            return userRepository.findAll();
+        public List<UserResponseDto> getUsers(){
+            List<User> users = userRepository.findAll();
+
+            return users.stream()
+                .map( user -> 
+                    userDtoMapper.toResponse(user))
+                    .toList();
+               
         }
 
-        public Optional<User> getUserById( Long id ){
-            return userRepository.findById(id);
+        public UserResponseDto getUserById( Long id ){
+            User user = userRepository.findById(id)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found") );
+
+            return userDtoMapper.toResponse(user);
+            
         }
 
         public void deleteUser( Long id ){
@@ -42,7 +61,7 @@ public class UserService {
             userRepository.delete(existingUser);
         }
 
-        public User updateUser( Long id, User userDetails ){
+        public UserResponseDto updateUser( Long id, UserRequestDto requestDto ){
             // check if user exists
 
                  User existingUser = userRepository.findById(id)
@@ -50,14 +69,15 @@ public class UserService {
             RuntimeException("User not found"));
 
             // Edit fields
-            existingUser.setName(userDetails.getName());
-            existingUser.setEmail(userDetails.getEmail());
-            existingUser.setCourse(userDetails.getCourse());
-            existingUser.setHomeAddress(userDetails.getHomeAddress());
+            existingUser.setName(requestDto.name());
+            existingUser.setEmail(requestDto.email());
+            existingUser.setCourse(requestDto.course());
+            existingUser.setHomeAddress(requestDto.address());
             
             // Save user
-            return userRepository.save(existingUser);
+             userRepository.save(existingUser);
 
+                return userDtoMapper.toResponse(existingUser);
 
 
         }

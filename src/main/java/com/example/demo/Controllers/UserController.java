@@ -18,6 +18,8 @@ import com.example.demo.Dto.UserRequestDto;
 import com.example.demo.Dto.UserResponseDto;
 import com.example.demo.Services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser( @RequestBody UserRequestDto userRequest ) {
+    public ResponseEntity<UserResponseDto> createUser( @Valid @RequestBody UserRequestDto userRequest ) {
         return new 
             ResponseEntity<>( userService.createUser(userRequest), HttpStatus.CREATED );
     }
@@ -53,7 +55,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser( @PathVariable Long id, @RequestBody UserRequestDto userRequest ){
+    public ResponseEntity<UserResponseDto> updateUser(  @Valid @PathVariable Long id, @RequestBody UserRequestDto userRequest ){
         return ResponseEntity.ok(userService.updateUser(id, userRequest));
     }
     

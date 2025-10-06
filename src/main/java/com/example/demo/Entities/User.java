@@ -1,10 +1,15 @@
 package com.example.demo.Entities;
 
+import java.util.List;
+import java.util.Objects;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,15 +36,19 @@ public class User {
     @Column(name = "password", nullable =  false, updatable = false)
     private String password;
 
+    @OneToMany( mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.PERSIST } )
+    private List<ProductEntity> product;
+
     public User(){}
 
-    public User(Long id, String name, String course, String email, String homeAddress, String password) {
+    public User(Long id, String name, String course, String email, String homeAddress, String password, List<ProductEntity> product) {
         this.id = id;
         this.name = name;
         this.course = course;
         this.email = email;
         this.homeAddress = homeAddress;
         this.password = password;
+        this.product = product;
     }
 
     public Long getId() {
@@ -90,67 +99,68 @@ public class User {
         this.password = password;
     }
 
+    public List<ProductEntity> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<ProductEntity> product) {
+        this.product = product;
+    }
+
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((course == null) ? 0 : course.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((homeAddress == null) ? 0 : homeAddress.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        return result;
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.course);
+        hash = 29 * hash + Objects.hashCode(this.email);
+        hash = 29 * hash + Objects.hashCode(this.homeAddress);
+        hash = 29 * hash + Objects.hashCode(this.password);
+        hash = 29 * hash + Objects.hashCode(this.product);
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        User other = (User) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.name, other.name)) {
             return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
+        }
+        if (!Objects.equals(this.course, other.course)) {
             return false;
-        if (course == null) {
-            if (other.course != null)
-                return false;
-        } else if (!course.equals(other.course))
+        }
+        if (!Objects.equals(this.email, other.email)) {
             return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
+        }
+        if (!Objects.equals(this.homeAddress, other.homeAddress)) {
             return false;
-        if (homeAddress == null) {
-            if (other.homeAddress != null)
-                return false;
-        } else if (!homeAddress.equals(other.homeAddress))
+        }
+        if (!Objects.equals(this.password, other.password)) {
             return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
+        }
+        if (!Objects.equals(this.id, other.id)) {
             return false;
-        return true;
+        }
+        return Objects.equals(this.product, other.product);
     }
 
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", course=" + course + ", email=" + email + ", homeAddress="
-                + homeAddress + ", password=" + password + "]";
+                + homeAddress + ", password=" + password + ", product=" + product + "]";
     }
 
     
+
     
+
 }

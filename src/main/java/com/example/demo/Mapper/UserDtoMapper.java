@@ -17,7 +17,8 @@ public class UserDtoMapper {
             dto.course(), 
             dto.email(), 
             dto.address(), 
-            dto.password()
+            dto.password(),
+            null
             );
     }
 
@@ -26,7 +27,8 @@ public class UserDtoMapper {
             user.getId(), 
             user.getName(), 
             user.getEmail(), 
-            user.getCourse()
+            user.getCourse(),
+            user.getProduct()
             );
     }
 

@@ -9,12 +9,6 @@ public record UserRequestDto(
     @NotBlank( message = "Name is required" )
     String name,
 
-    @NotBlank( message = "Address is required" )
-    String address,
-
-    @NotBlank( message = "Course is required" )
-    String course,
-
     @Email( message = "Enter a valid email" )
     @NotBlank( message = "Email is required" )
     String email,

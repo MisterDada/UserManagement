@@ -1,7 +1,5 @@
 package com.example.demo.Dto;
 
-import com.example.demo.Entities.User;
-
 public record ProductResponseDto(
 
     Long Id,
@@ -9,7 +7,7 @@ public record ProductResponseDto(
     String decription,
     double price,
     int quantity,
-    User seller
+    UserResponseDto user
 
 ) {
     

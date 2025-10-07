@@ -10,24 +10,23 @@ import com.example.demo.Entities.User;
 public class UserDtoMapper {
     
 
-    public User toEntity( UserRequestDto dto ){
+   public User toEntity( UserRequestDto request ){
         return new User(
-            null,
-            dto.name(), 
-            dto.course(), 
-            dto.email(), 
-            dto.address(), 
-            dto.password(),
+            null, 
+            request.name(), 
+            null, 
+            request.email(), 
+            null, 
+            request.password(), 
             null
             );
-    }
+   }
 
     public UserResponseDto toResponse( User user ){
         return new UserResponseDto(
             user.getId(), 
             user.getName(), 
-            user.getEmail(), 
-            user.getCourse(),
+            user.getEmail(),
             user.getProduct()
             );
     }

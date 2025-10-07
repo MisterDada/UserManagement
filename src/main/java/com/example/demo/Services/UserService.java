@@ -71,8 +71,6 @@ public class UserService {
             // Edit fields
             existingUser.setName(requestDto.name());
             existingUser.setEmail(requestDto.email());
-            existingUser.setCourse(requestDto.course());
-            existingUser.setHomeAddress(requestDto.address());
             
             // Save user
              userRepository.save(existingUser);

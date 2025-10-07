@@ -24,19 +24,19 @@ public class User {
     @Column(name = "username", nullable =  false, updatable = false)
     private String name;
 
-    @Column(name = "course", nullable =  false, updatable = false)
+    @Column(name = "course", nullable =  true, updatable = false)
     private String course;
 
     @Column(name = "email", nullable =  false, updatable = false)
     private String email;
 
-    @Column(name = "address", nullable =  false, updatable = false)
+    @Column(name = "address", nullable =  true, updatable = false)
     private String homeAddress;
 
     @Column(name = "password", nullable =  false, updatable = false)
     private String password;
 
-    @OneToMany( mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.PERSIST } )
+    @OneToMany( mappedBy = "userId", cascade = { CascadeType.REMOVE, CascadeType.PERSIST } )
     private List<ProductEntity> product;
 
     public User(){}

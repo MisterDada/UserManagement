@@ -36,17 +36,17 @@ public class ProductEntity {
 
     @ManyToOne( fetch = FetchType.LAZY )
     @JoinColumn( name = "users_id" )
-    private User user;
+    private User userId;
 
     public ProductEntity(){}
 
-    public ProductEntity(Long Id, String description, double price, String product_name, int quantity, User user) {
+    public ProductEntity(Long Id, String description, double price, String product_name, int quantity, User userId) {
         this.Id = Id;
         this.description = description;
         this.price = price;
         this.product_name = product_name;
         this.quantity = quantity;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -90,11 +90,11 @@ public class ProductEntity {
     }
 
     public User getUser() {
-        return user;
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ProductEntity {
         hash = 83 * hash + this.quantity;
         hash = 83 * hash + Objects.hashCode(this.description);
         hash = 83 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 83 * hash + Objects.hashCode(this.user);
+        hash = 83 * hash + Objects.hashCode(this.userId);
         return hash;
     }
 
@@ -136,13 +136,13 @@ public class ProductEntity {
         if (!Objects.equals(this.Id, other.Id)) {
             return false;
         }
-        return Objects.equals(this.user, other.user);
+        return Objects.equals(this.userId, other.userId);
     }
 
     @Override
     public String toString() {
         return "ProductEntity [Id=" + Id + ", product_name=" + product_name + ", quantity=" + quantity
-                + ", description=" + description + ", price=" + price + ", user=" + user + "]";
+                + ", description=" + description + ", price=" + price + ", userId=" + userId + "]";
     }
 
     

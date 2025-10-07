@@ -1,14 +1,13 @@
 package com.example.demo.Dto;
 
-import com.example.demo.Entities.User;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 
 public record ProductRequestDto(
 
     @NotNull
-    User id,
+    Long userId,
 
     @NotBlank( message = "Product name cannot be blank" )
     String product_name,

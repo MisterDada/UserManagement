@@ -63,7 +63,7 @@ public class ProductService {
             productRepository.delete(existingProduct);
     }
 
-    public ProductResponseDto updateUser( Long id, ProductRequestDto request ){
+    public ProductResponseDto updateProduct( Long id, ProductRequestDto request ){
             // check if product exists
 
                  ProductEntity existingProduct = productRepository.findById(id)

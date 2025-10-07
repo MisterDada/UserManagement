@@ -39,4 +39,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+
+    @ExceptionHandler({NullPointerException.class})
+    public ResponseEntity<ErrorResponse> handleNullPointerExceptions(
+        NullPointerException exception, 
+        WebRequest request
+    ){
+        ErrorResponse errorResponse = new ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(), 
+            exception.getMessage(), 
+            request.getDescription(false)
+            );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

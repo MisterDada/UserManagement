@@ -1,7 +1,5 @@
 package com.example.demo.Dto;
 
-import java.util.List;
-
 import com.example.demo.Entities.User;
 
 public record ProductResponseDto(
@@ -11,7 +9,7 @@ public record ProductResponseDto(
     String decription,
     double price,
     int quantity,
-    List<User> seller
+    User seller
 
 ) {
     

@@ -1,10 +1,13 @@
 package com.example.demo.Mapper;
 
 
+import org.springframework.stereotype.Component;
+
 import com.example.demo.Dto.ProductRequestDto;
 import com.example.demo.Dto.ProductResponseDto;
 import com.example.demo.Entities.ProductEntity;
 
+@Component
 public class ProductDtoMapper {
     
     public ProductEntity toEntity( ProductRequestDto request ){
